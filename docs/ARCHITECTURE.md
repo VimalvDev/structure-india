@@ -23,15 +23,20 @@
 - API calls: native `fetch` (Next.js's extended fetch handles caching/
   revalidation) — no axios.
 
-## Backend / CMS
-- **Supabase** (Postgres + Storage + Auth) — one service for DB, file
-  storage, and admin authentication. No separate backend framework
-  (FastAPI considered and rejected — see MEMORY.md).
+## Backend / CMS — deferred to a later phase (see PHASES.md "Later / Backlog")
+V1 ships with **static TypeScript data** (`lib/data/products.ts`) instead of
+a database — no Supabase, no admin panel yet. Building CRUD/admin before the
+site has any live content was solving a problem that doesn't exist yet.
+`seed_products.sql` (already written) stays as the migration script for
+whenever the DB + admin panel phase actually happens — same data, same
+shape, just not wired up now.
+
+When that phase does happen:
+- **Supabase** (Postgres + Storage + Auth).
 - **Auth**: Supabase Auth, email/password, restricted to admin accounts.
   `/admin/*` gated by server-side session check. RLS policies restrict writes
   to authenticated users.
-- Runtime: Node.js via Next.js Route Handlers / Server Actions for anything
-  needing server-side logic (contact form, chat endpoint, rate limiting).
+- Runtime: Node.js via Next.js Route Handlers / Server Actions.
 
 ## Data model
 
@@ -192,22 +197,28 @@ Next.js app on Vercel. Supabase cloud for DB/auth/storage. Upstash for Redis.
 ## Project management
 Linear for bug/task tracking (lighter than Jira, fits a solo/small team).
 
-## Data flow
-1. Public pages are server-rendered, fetching from Supabase directly —
-   no client-side fetching library involved.
-2. Admin (`/admin`) is a client-authenticated app section using TanStack
-   Query + TanStack Table against Supabase, gated by Supabase Auth + RLS.
-3. Contact/enquiry form: client component → server action → zod validation →
-   rate-limit check (Upstash) → insert into `enquiries` → Resend
-   notification email.
-4. Catalog: browsable grid + product detail pages, each with "Request Quote."
-   Zustand-held enquiry list lets a user select multiple products, submitted
-   as one `enquiries` row (`items` jsonb) via the same server action.
-5. AI chat: user message → rate-limit check → embed query (OpenAI) →
+## Data flow — V1 (current, static data, no DB)
+1. Public pages are server-rendered, reading from `lib/data/products.ts`
+   directly — no database, no client-side fetching library involved.
+2. Contact/enquiry form: client component → server action → zod validation →
+   send directly via Resend. No DB insert, no rate limiting yet (both are
+   cheap to add once there's a database worth protecting — see "Later" below).
+3. Catalog: browsable grid + product detail pages, each with "Request Quote."
+   Zustand-held enquiry list (persisted to localStorage) lets a user select
+   multiple products, submitted as one email via the same server action.
+
+## Data flow — Later (once the DB/admin phase happens)
+1. Public pages switch to server-rendering from Supabase instead of the
+   static file — same shape, `seed_products.sql` migrates the data.
+2. Admin (`/admin`) becomes a client-authenticated app section using
+   TanStack Query + TanStack Table against Supabase, gated by Supabase Auth + RLS.
+3. Contact/enquiry form gains a rate-limit check (Upstash) and an
+   `enquiries` table insert alongside the Resend email.
+4. AI chat: user message → rate-limit check → embed query (OpenAI) →
    similarity search `kb_chunks` (pgvector) → Groq generates a streamed
    response (Vercel AI SDK) using retrieved context → optionally logged to
    `chat_messages`.
-6. New enquiry → Supabase Realtime pushes a live notification to any open
+5. New enquiry → Supabase Realtime pushes a live notification to any open
    admin dashboard session.
 
 ## Why not a headless CMS

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+<svg id="world-svg" viewBox="0 0 1010 666" style="display:none"></svg>
+<svg id="india-svg" viewBox="0 0 668 763" style="display:none"></svg>
+<script type="module">
+import World from "https://cdn.skypack.dev/@svg-maps/world";
+import India from "https://cdn.skypack.dev/@svg-maps/india";
+
+const wSvg = document.getElementById("world-svg");
+const inPath = World.locations.find(l => l.id === "in");
+const wPathNode = document.createElementNS("http://www.w3.org/2000/svg", "path");
+wPathNode.setAttribute("d", inPath.path);
+wSvg.appendChild(wPathNode);
+wSvg.style.display = "block";
+const wBox = wPathNode.getBBox();
+wSvg.style.display = "none";
+
+const iSvg = document.getElementById("india-svg");
+const iGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+India.locations.forEach(l => {
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", l.path);
+  iGroup.appendChild(p);
+});
+iSvg.appendChild(iGroup);
+iSvg.style.display = "block";
+const iBox = iGroup.getBBox();
+iSvg.style.display = "none";
+
+const scale = wBox.width / iBox.width;
+const tx = wBox.x - (iBox.x * scale);
+const ty = wBox.y - (iBox.y * scale);
+
+document.body.innerHTML = `<p id="result">Scale: ${scale}, Tx: ${tx}, Ty: ${ty}, WBox: ${wBox.x}, ${wBox.y}, ${wBox.width}, ${wBox.height}</p>`;
+</script>
+</body>
+</html>

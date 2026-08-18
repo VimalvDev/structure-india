@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Shield,
   Droplets,
@@ -13,6 +14,7 @@ import {
   MapPin,
   ArrowRight,
   ImageIcon,
+  FlaskConical,
 } from "lucide-react";
 import {
   Card,
@@ -22,6 +24,8 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { HeroThreadline, StatThreadline } from "@/components/sections/schematic-threadline";
+import { PanIndiaPresence } from "@/components/sections/pan-india-presence";
+import Hero from "@/components/sections/hero";
 
 /* ────────────────────────────────────────────────────────────────────
    CATEGORY DATA
@@ -80,30 +84,67 @@ const categories = [
 ] as const;
 
 /* ────────────────────────────────────────────────────────────────────
-   WHY-US STATS
+   FEATURED PRODUCTS DATA
    ──────────────────────────────────────────────────────────────────── */
 
-const stats = [
+const featuredProducts = [
   {
-    icon: Award,
-    value: "ISO 9001:2015",
-    label: "Certified quality management",
+    name: "Ash Gel Earthing Electrode",
+    category: "Earthing & Lightning Protection",
+    icon: Shield,
+    spec: "CPRI & RDSO tested. Manufactured under ISO 9001:2008 certified process.",
   },
   {
-    icon: Layers,
-    value: "7",
-    label: "Engineering categories under one roof",
+    name: "ASH Stormflash ESE Air Terminal",
+    category: "Earthing & Lightning Protection",
+    icon: Shield,
+    spec: "Early Streamer Emission lightning protection, NF C 17-102 & UNE 21186:2011 compliant. Stormflash 60 tested to 70kA impulse current (CPRI). 20-year warranty.",
   },
   {
-    icon: Building2,
-    value: "MSME · NSIC",
-    label: "Registered for government procurement",
+    name: "Industrial Reverse Osmosis System",
+    category: "Water & Wastewater Treatment",
+    icon: Droplets,
+    spec: "Fibreglass-wrapped thin film composite RO membranes, electric control panel with MIMIC diagram.",
   },
   {
-    icon: MapPin,
-    value: "Ghaziabad, UP",
-    label: "In-house manufacturing facility",
+    name: "DM Plant & Softener System",
+    category: "Water & Wastewater Treatment",
+    icon: FlaskConical,
+    spec: "Trolley-mounted automatic operation available for small industries and laboratories.",
   },
+  {
+    name: "Water ATM",
+    category: "Water & Wastewater Treatment",
+    icon: Droplets,
+    spec: "24×7 automated RO water vending with coin/smart-card access and GSM cloud reporting.",
+  },
+  {
+    name: "Bottle Shape FRP Cooling Tower",
+    category: "Cooling Towers",
+    icon: Wind,
+    spec: "18-model range from 7.5 TR to 500 TR capacity, manufactured in-house.",
+  },
+] as const;
+
+
+
+/* ────────────────────────────────────────────────────────────────────
+   TRUSTED BY — client names from Ash printed catalog
+   ──────────────────────────────────────────────────────────────────── */
+
+const trustedByClients = [
+  "Sify",
+  "Siemens",
+  "TATA",
+  "HCL",
+  "NTPC",
+  "ONGC",
+  "Vodafone Idea",
+  "State Bank of India",
+  "Asian Paints",
+  "Bank of Baroda",
+  "Hero Honda",
+  "ITC",
 ] as const;
 
 /* ════════════════════════════════════════════════════════════════════
@@ -112,43 +153,14 @@ const stats = [
 
 export default function Home() {
   return (
-    <main>
+    <div className="flex min-h-screen flex-col">
       {/* ── 1. HERO ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-surface px-4 pb-16 pt-20 sm:px-6 md:px-8 lg:pb-24 lg:pt-28">
-        {/* Schematic threadline motif — behind everything */}
-        <HeroThreadline />
+      <Hero />
 
-        <div className="relative mx-auto max-w-4xl">
-          <h1 className="hero-fade-up hero-fade-up-1 font-display text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            Built to pass inspection.
-          </h1>
+      {/* ── 2. PAN-INDIA PRESENCE ───────────────────────────────── */}
+      <PanIndiaPresence />
 
-          <p className="hero-fade-up hero-fade-up-2 mt-5 max-w-2xl text-base leading-relaxed text-ink-muted sm:text-lg sm:leading-relaxed">
-            Structure India designs, manufactures, and installs earthing
-            systems, water &amp; wastewater treatment plants, cooling towers,
-            solar power systems, fiber infrastructure, smart metering, and
-            electrical installations — under the Ash brand. ISO&nbsp;9001:2015
-            certified. MSME and NSIC registered.
-          </p>
-
-          <div className="hero-fade-up hero-fade-up-3 mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-ash-orange px-6 text-sm font-semibold text-white transition-colors duration-150 hover:bg-ash-orange/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2"
-            >
-              Get a Quote
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex h-11 items-center justify-center rounded-lg border border-border px-6 text-sm font-semibold text-ink transition-colors duration-150 hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/20 focus-visible:ring-offset-2"
-            >
-              Browse Products
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 2. TRUST STRIP ──────────────────────────────────────── */}
+      {/* ── 3. TRUST STRIP ──────────────────────────────────────── */}
       <section className="border-y border-border bg-surface-alt px-4 py-5 sm:px-6 md:px-8">
         <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-x-6 gap-y-2 sm:gap-x-8">
           {[
@@ -156,6 +168,7 @@ export default function Home() {
             "MSME / UDYAM Registered",
             "NSIC Registered",
             "GST Registered",
+            "Make in India — 100% Local Content",
           ].map((badge) => (
             <span
               key={badge}
@@ -212,19 +225,98 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 4. ABOUT SNIPPET ────────────────────────────────────── */}
+      {/* ── 4. FEATURED PRODUCTS ────────────────────────────────── */}
       <section className="bg-surface-alt px-4 py-16 sm:px-6 md:px-8 lg:py-20">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            What we&apos;ve built
+          </h2>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredProducts.map((product) => {
+              const Icon = product.icon;
+              return (
+                <Link
+                  key={product.name}
+                  href="/products"
+                  className="group block"
+                >
+                  <Card className="h-full border-border bg-surface transition-shadow duration-150 group-hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-ash-orange/40 group-focus-visible:ring-offset-2">
+                    {/* PLACEHOLDER — swap with real product photo later.
+                        Each featured product needs a photograph; until then
+                        this bordered box with an icon fallback is the
+                        identifiable placeholder pattern. */}
+                    <div className="flex h-44 items-center justify-center border-b border-border bg-surface-alt">
+                      <div className="flex flex-col items-center gap-2 text-border">
+                        <Icon className="h-8 w-8" aria-hidden="true" />
+                        <span className="text-[10px] font-medium uppercase tracking-widest text-ink-muted/50">
+                          Photo coming soon
+                        </span>
+                      </div>
+                    </div>
+
+                    <CardHeader className="pb-2">
+                      <span className="mb-1.5 inline-flex w-fit rounded-full bg-surface-alt px-2.5 py-0.5 text-[11px] font-medium text-ink-muted">
+                        {product.category}
+                      </span>
+                      <CardTitle className="text-sm font-semibold leading-snug text-ink">
+                        {product.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-xs leading-relaxed text-ink-muted">
+                        {product.spec}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 5. TRUSTED BY ───────────────────────────────────────── */}
+      <section className="bg-surface px-4 py-16 sm:px-6 md:px-8 lg:py-20">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            Trusted by
+          </h2>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-5 sm:gap-x-12 lg:gap-x-14">
+            {trustedByClients.map((client) => (
+              <span
+                key={client}
+                className="font-display text-lg font-semibold tracking-tight text-ink/20 sm:text-xl"
+              >
+                {client}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+      {/* ── 7. ABOUT SNIPPET ────────────────────────────────────── */}
+      <section className="bg-surface px-4 py-16 sm:px-6 md:px-8 lg:py-20">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
             About us
           </h2>
+          {/* TODO: Founding year conflict — "Estd. 2000" vs "Since 2002"
+              appears in different sources. Confirm with client before
+              publishing a specific year anywhere on the site. */}
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
             Structure India is an ISO&nbsp;9001:2015 certified engineering firm
             based in Ghaziabad, Uttar Pradesh, manufacturing and installing
-            infrastructure systems under the Ash brand. We serve government
-            tender platforms — GeM, CPWD, IREPS — and private industrial clients
-            across seven engineering categories, from earthing and water
-            treatment to fiber infrastructure and smart metering.
+            infrastructure systems under the Ash brand. Our earthing and
+            lightning protection products are independently tested by CPRI and
+            RDSO. We serve government tender platforms — GeM, CPWD, IREPS — and
+            private industrial clients across seven engineering categories, from
+            earthing and water treatment to fiber infrastructure and smart
+            metering. All products are designed and manufactured in India with
+            100% local content.
           </p>
           <Link
             href="/about"
@@ -236,8 +328,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. FEATURED PROJECTS ────────────────────────────────── */}
-      <section className="bg-surface px-4 py-16 sm:px-6 md:px-8 lg:py-20">
+      {/* ── 8. RECENT WORK ──────────────────────────────────────── */}
+      <section className="bg-surface-alt px-4 py-16 sm:px-6 md:px-8 lg:py-20">
         <div className="mx-auto max-w-5xl">
           <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
             Recent work
@@ -297,39 +389,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. WHY STRUCTURE INDIA / ASH ────────────────────────── */}
-      <section className="bg-surface-alt px-4 py-16 sm:px-6 md:px-8 lg:py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="font-display text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
-            Why tender teams work with us
-          </h2>
-
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => {
-              const Icon = stat.icon;
-              return (
-                <div key={stat.label} className="flex flex-col items-center text-center">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-md bg-surface text-ink-muted">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-
-                  {/* Schematic connector line */}
-                  <StatThreadline />
-
-                  <span className="font-mono text-lg font-medium tracking-tight text-ink">
-                    {stat.value}
-                  </span>
-                  <span className="mt-1 text-xs leading-snug text-ink-muted">
-                    {stat.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. CTA BANNER ───────────────────────────────────────── */}
+      {/* ── 9. CTA BANNER ───────────────────────────────────────── */}
       <section className="bg-ash-orange px-4 py-14 sm:px-6 md:px-8 lg:py-16">
         <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <h2 className="font-display text-xl font-semibold text-white sm:text-2xl">
@@ -343,6 +403,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
