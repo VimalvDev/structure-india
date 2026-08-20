@@ -17,6 +17,7 @@
   --color-surface: #FFFFFF;
   --color-surface-alt: #F5F6F7;
   --color-border: #E4E6E8;
+  --color-nav-bg: rgba(0, 0, 0, 0.35); /* Dark semi-transparent for glassmorphism */
 
   /* Fonts — bound to CSS variables set by next/font */
   --font-sans: var(--font-body);

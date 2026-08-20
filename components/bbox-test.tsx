@@ -23,11 +23,11 @@ export function BBoxTest() {
     <div style={{ padding: '2rem', background: '#000', color: '#0f0', position: 'fixed', top: 0, left: 0, zIndex: 9999 }}>
       {res}
       <svg viewBox="0 0 1010 666" style={{ width: 0, height: 0 }}>
-        <path ref={wRef} d={World.locations.find(l => l.id === "in")?.path} />
+        <path ref={wRef} d={World.locations.find((l: any) => l.id === "in")?.path} />
       </svg>
       <svg viewBox="0 0 668 763" style={{ width: 0, height: 0 }}>
         <g ref={iRef}>
-          {India.locations.map(l => <path key={l.id} d={l.path} />)}
+          {India.locations.map((l: any) => <path key={l.id} d={l.path} />)}
         </g>
       </svg>
     </div>

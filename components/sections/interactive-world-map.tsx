@@ -64,7 +64,7 @@ export function InteractiveWorldMap() {
           onMouseMove={handleMouseMove}
         >
           {/* Base World Map - Exclude India */}
-          {World.locations.map((location) => {
+          {World.locations.map((location: any) => {
             if (location.id === "in") return null;
             return (
               <path
@@ -86,7 +86,7 @@ export function InteractiveWorldMap() {
             Position x ≈ 708, y ≈ 292
           */}
           <g transform="translate(707.5, 292) scale(0.096)">
-            {India.locations.map((location) => {
+            {India.locations.map((location: any) => {
               const status = getStateStatus(location.id);
               let fillClass = "fill-border/70 hover:fill-border transition-colors duration-200 cursor-pointer";
               if (status === "hq") {
