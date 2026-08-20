@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu } from "lucide-react";
-import { useScrollDirection } from "@/hooks/use-scroll-direction";
 import MobileNavDrawer from "./mobile-nav-drawer";
 import { categories } from "@/lib/data/categories";
 import {
@@ -17,46 +16,27 @@ import {
 } from "@/components/ui/navigation-menu";
 
 export default function Header() {
-  const { scrollDirection, scrollY } = useScrollDirection();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  // Determine visibility
-  const isHidden =
-    scrollDirection === "down" && scrollY > 80 && !isMobileMenuOpen;
-
-  // Dynamic hover background for nav items
-  const navItemHover = "hover:bg-white/10 data-open:bg-white/10";
-
-  const headerClasses = `
-    fixed inset-x-4 top-4 z-50 sm:inset-x-6 sm:top-6 lg:inset-x-8
-    rounded-xl transition-all duration-300
-    ${isHidden ? "-translate-y-[calc(100%+2rem)]" : "translate-y-0"}
-    bg-nav-bg text-white shadow-lg backdrop-blur-md border border-white/10
-  `;
+  // Hover style for nav links
+  const navItemHover = "hover:text-white/90 data-open:text-white/90";
 
   return (
     <>
       <header
-        className={headerClasses}
+        className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="mx-auto flex w-full items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-3 sm:px-8 lg:px-10">
           {/* BRAND LOCKUP */}
           <Link
             href="/"
-            className="flex items-center gap-2 rounded-xl hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
           >
+          
             <Image
-              src="/si-logo.avif"
-              alt="SI Logo"
-              width={48}
-              height={48}
-              className="h-7 mb-1 w-auto object-contain"
-              priority
-            />
-            <Image
-              src="/structureindia-fulllogo.avif"
+              src="/structureindialogoorange.avif"
               alt="Structure India"
               width={200}
               height={40}
@@ -64,15 +44,17 @@ export default function Header() {
               priority
             />
           </Link>
-          <div className="wrapper flex items-center gap-10">
+
+          {/* RIGHT SIDE: NAV + CTA */}
+          <div className="flex items-center gap-1">
             {/* DESKTOP NAV */}
-            <div className="hidden lg:flex items-center">
+            <nav className="hidden lg:flex items-center">
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
                     <Link href="/about" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={`bg-transparent text-inherit hover:text-inherit transition-colors ${navItemHover}`}
+                        className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
                       >
                         About
                       </NavigationMenuLink>
@@ -81,7 +63,7 @@ export default function Header() {
 
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
-                      className={`bg-transparent text-inherit hover:text-inherit transition-colors ${navItemHover}`}
+                      className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
                     >
                       Products
                     </NavigationMenuTrigger>
@@ -93,7 +75,7 @@ export default function Header() {
                             <Link
                               key={cat.slug}
                               href={`/products/${cat.slug}`}
-                              className="flex items-center gap-3 rounded-xl px-2 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-1"
+                              className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-1"
                             >
                               <Icon
                                 className="h-4 w-4 shrink-0 text-ash-orange"
@@ -110,7 +92,7 @@ export default function Header() {
                   <NavigationMenuItem>
                     <Link href="/services" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={`bg-transparent text-inherit hover:text-inherit transition-colors ${navItemHover}`}
+                        className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
                       >
                         Services
                       </NavigationMenuLink>
@@ -118,25 +100,28 @@ export default function Header() {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
-            </div>
+            </nav>
+
+            {/* Separator */}
+            <div className="hidden lg:block mx-4 h-5 w-px bg-white/[0.12]" />
 
             {/* DESKTOP CTA / MOBILE HAMBURGER */}
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
               <Link
                 href="/contact"
-                className="hidden items-center justify-center rounded-xl bg-ash-orange px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-ash-orange/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 lg:flex"
+                className="hidden items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.06] px-4 py-1.5 text-sm font-medium text-white transition-all hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60 lg:flex"
               >
                 Contact Us
               </Link>
 
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="ml-4 rounded-xl p-2 hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 lg:hidden"
+                className="rounded-lg p-2 text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 lg:hidden"
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label="Open menu"
               >
-                <Menu className="h-6 w-6" aria-hidden="true" />
+                <Menu className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
           </div>

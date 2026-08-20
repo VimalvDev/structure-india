@@ -80,27 +80,47 @@ export default function ContactForm() {
     }
 
     setIsSubmitting(true)
+    setErrors({})
 
-    // Simulate network request
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-    console.log("Form Payload:", JSON.stringify(formData, null, 2))
+      const data = await res.json()
 
-    setIsSubmitting(false)
-    setIsSuccess(true)
-    setFormData({
-      inquiryType: "",
-      title: "",
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-    })
+      if (!res.ok) {
+        // Map server-side field errors back into form state
+        if (data.errors && typeof data.errors === "object") {
+          setErrors(data.errors as FormErrors)
+        } else {
+          setErrors({ message: data.message || "Something went wrong. Please try again." })
+        }
+        setIsSubmitting(false)
+        return
+      }
 
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      setIsSuccess(false)
-    }, 5000)
+      setIsSubmitting(false)
+      setIsSuccess(true)
+      setFormData({
+        inquiryType: "",
+        title: "",
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      })
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        setIsSuccess(false)
+      }, 5000)
+    } catch {
+      setErrors({ message: "Network error. Please check your connection and try again." })
+      setIsSubmitting(false)
+    }
   }
 
   if (isSuccess) {
