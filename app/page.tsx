@@ -6,16 +6,18 @@ import CategoryShowcase from "@/components/sections/category-showcase";
 import Registered from "@/components/sections/registered";
 import CtaSection from "@/components/sections/cta-section";
 import FAQ from "@/components/sections/faq";
+import CapabilityReveal from "@/components/sections/capability-reveal";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <Hero />
+      <TrustedBy />
       <AboutSnippet />
       <Registered />
       <CategoryShowcase />
-      <TrustedBy />
       <FAQ />
+      <CapabilityReveal />
       <CtaSection />
     </div>
   );

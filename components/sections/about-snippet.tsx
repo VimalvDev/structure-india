@@ -22,21 +22,21 @@ export default function AboutSnippet() {
           {/* Right Column */}
           <div>
             <p className="text-base leading-relaxed text-ink-muted sm:text-lg">
-              Structure India was founded in 2005 with a clear commitment to
-              customer service. Aiming to meet our clients' objectives, we
-              leverage quality, performance, and cost-competitiveness. These
-              constitute our strength and warranty.
+              Ash is the earthing and lightning protection brand of Structure India, founded in 2005 with a clear commitment to customer service. We manufacture maintenance-free gel earthing electrodes, backfill compound, and lightning protection systems engineered to IS/ISI standards.
             </p>
             <p className="mt-6 text-base leading-relaxed text-ink-muted sm:text-lg">
-              Structure India provides turnkey engineering solutions across
-              seven categories: earthing & lightning protection, water &
-              wastewater treatment, cooling towers, OFC/fiber infrastructure,
-              smart metering, electrical installation, and solar power. Led by
-              an experienced team and manufactured under ISO 9001:2015
-              certification, we provide end-to-end solutions including design,
-              engineering, procurement, and construction (EPC) for our customers
-              seeking reliable infrastructure execution.
+              Manufactured under ISO 9001:2015 certification, Ash earthing electrodes are built from custom I.S.I. tube with a conductive, corrosion-resistant chemical fill, engineered for decades of maintenance-free performance in any soil condition. From gel earthing electrodes to lightning conductors and backfill compound, every system is designed, tested, and installed with pan-India service support.
             </p>
+            <div className="mt-8">
+              <a
+                href="https://structure-india.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-ash-orange hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange rounded-sm"
+              >
+                Read More About Structure India &rarr;
+              </a>
+            </div>
           </div>
         </div>
       </div>

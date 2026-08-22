@@ -1,7 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { categories } from "@/lib/data/categories";
+
+const earthingProducts = [
+  { name: "Gel Earthing Electrode", slug: "gel-earthing-electrode" },
+  { name: "Earthing Backfill Compound", slug: "earthing-backfill-compound" },
+  { name: "Lightning Conductor", slug: "lightning-conductor" },
+];
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,22 +22,15 @@ export default function Footer() {
               className="flex items-center gap-2 hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50"
             >
               <Image
-                src="/si-logo.avif"
-                alt="SI Logo"
-                width={48}
-                height={48}
-                className="h-9 w-auto object-contain"
-              />
-              <Image
-                src="/structureindia-fulllogo.avif"
-                alt="Structure India"
-                width={200}
-                height={40}
-                className="h-10 w-auto object-contain"
+                src="/ash-logo.avif"
+                alt="Ash Logo"
+                width={100}
+                height={100}
+                className="h-15 w-auto object-contain"
               />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
-              Turnkey infrastructure solutions — water treatment, earthing systems, OFC laying, and smart metering — under the Ash brand since 2005.
+              Maintenance-free gel earthing electrodes, backfill compound, and lightning protection systems — engineered to IS/ISI standards, installed pan-India since 2005.
             </p>
           </div>
 
@@ -42,13 +40,13 @@ export default function Footer() {
               Products
             </h3>
             <ul className="flex flex-col gap-y-2.5">
-              {categories.map((category) => (
-                <li key={category.slug}>
+              {earthingProducts.map((product) => (
+                <li key={product.slug}>
                   <Link
-                    href={`/products/${category.slug}`}
+                    href={`/products#${product.slug}`}
                     className="text-sm text-white/75 transition-colors hover:text-white"
                   >
-                    {category.name}
+                    {product.name}
                   </Link>
                 </li>
               ))}
@@ -63,10 +61,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-y-2.5">
               <li>
                 <Link
-                  href="/about"
+                  href="https://structure-india.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm text-white/75 transition-colors hover:text-white"
                 >
-                  About
+                  About Structure India
                 </Link>
               </li>
               <li>
@@ -79,7 +79,9 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about#certifications"
+                  href="https://structure-india.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm text-white/75 transition-colors hover:text-white"
                 >
                   Certifications
@@ -135,13 +137,9 @@ export default function Footer() {
         {/* BOTTOM BAR */}
         <div className="flex flex-col items-center justify-between gap-4 pt-6 text-xs text-white/50 sm:flex-row">
           <div>
-            &copy; {currentYear} Structure India. All rights reserved.
+            &copy; {currentYear} Ash — A Structure India Brand. All rights reserved.
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:justify-end">
-            {/* // TODO: GST, MSME, and NSIC registration numbers need to be filled in with real values before launch. Do not fabricate. */}
-            <span>GST: [TODO]</span>
-            <span>MSME/UDYAM: [TODO]</span>
-            <span>NSIC: [TODO]</span>
             <Link href="/privacy-policy" className="transition-colors hover:text-white">
               Privacy Policy
             </Link>

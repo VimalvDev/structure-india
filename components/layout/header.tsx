@@ -19,12 +19,12 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   // Hover style for nav links
-  const navItemHover = "hover:text-white/90 data-open:text-white/90";
+  const navItemHover = "hover:text-neutral-900 data-[state=open]:text-neutral-900";
 
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50 border-b border-white/[0.08] bg-black/60 text-white backdrop-blur-xl backdrop-saturate-150"
+        className="fixed inset-x-0 top-0 z-50 border-b border-neutral-200 bg-white/95 text-neutral-900 backdrop-blur-xl"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -32,15 +32,15 @@ export default function Header() {
           {/* BRAND LOCKUP */}
           <Link
             href="/"
-            className="flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60"
+            className="flex items-center gap-2 hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2"
           >
           
             <Image
-              src="/structureindialogoorange.avif"
+              src="/ash-logo.avif"
               alt="Structure India"
-              width={200}
-              height={40}
-              className="h-9 w-auto object-contain"
+              width={180}
+              height={30}
+              className="h-8 w-auto object-contain"
               priority
             />
           </Link>
@@ -50,32 +50,43 @@ export default function Header() {
             {/* DESKTOP NAV */}
             <nav className="hidden lg:flex items-center">
               <NavigationMenu>
-                <NavigationMenuList>
+                <NavigationMenuList className="gap-2">
+
+                  <NavigationMenuItem>
+                    <Link href="/" legacyBehavior passHref>
+                      <NavigationMenuLink
+                        className={`bg-transparent px-3 py-2 text-sm font-medium text-neutral-600 transition-colors ${navItemHover}`}
+                      >
+                        Home
+                      </NavigationMenuLink>
+                    </Link>
+                  </NavigationMenuItem>
+
                   <NavigationMenuItem>
                     <Link href="/about" legacyBehavior passHref>
                       <NavigationMenuLink
-                        className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
+                        className={`bg-transparent px-3 py-2 text-sm font-medium text-neutral-600 transition-colors ${navItemHover}`}
                       >
-                        About
+                        About Us
                       </NavigationMenuLink>
                     </Link>
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
                     <NavigationMenuTrigger
-                      className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
+                      className={`bg-transparent px-3 py-2 text-sm font-medium text-neutral-600 transition-colors ${navItemHover}`}
                     >
-                      Products
+                      Services
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="grid grid-cols-2 gap-x-8 gap-y-1 w-[560px] p-6">
+                      <div className="grid grid-cols-2 gap-x-8 gap-y-1 w-[560px] p-6 bg-white rounded-2xl shadow-lg ring-1 ring-black/5">
                         {categories.map((cat) => {
                           const Icon = cat.icon;
                           return (
                             <Link
                               key={cat.slug}
                               href={`/products/${cat.slug}`}
-                              className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-1"
+                              className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-1"
                             >
                               <Icon
                                 className="h-4 w-4 shrink-0 text-ash-orange"
@@ -88,35 +99,24 @@ export default function Header() {
                       </div>
                     </NavigationMenuContent>
                   </NavigationMenuItem>
+                  
 
-                  <NavigationMenuItem>
-                    <Link href="/services" legacyBehavior passHref>
-                      <NavigationMenuLink
-                        className={`bg-transparent text-sm text-white/70 transition-colors ${navItemHover}`}
-                      >
-                        Services
-                      </NavigationMenuLink>
-                    </Link>
-                  </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
             </nav>
 
-            {/* Separator */}
-            <div className="hidden lg:block mx-4 h-5 w-px bg-white/[0.12]" />
-
             {/* DESKTOP CTA / MOBILE HAMBURGER */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 ml-4">
               <Link
                 href="/contact"
-                className="hidden items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.06] px-4 py-1.5 text-sm font-medium text-white transition-all hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black/60 lg:flex"
+                className="hidden items-center justify-center rounded-full border border-si-green bg-transparent px-5 py-2 text-sm font-medium text-neutral-900 transition-all hover:bg-neutral-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-2 lg:flex"
               >
-                Contact Us
+                Let's Talk
               </Link>
 
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="rounded-lg p-2 text-white/70 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 lg:hidden"
+                className="rounded-full p-2 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 lg:hidden"
                 aria-expanded={isMobileMenuOpen}
                 aria-controls="mobile-menu"
                 aria-label="Open menu"
