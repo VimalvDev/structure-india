@@ -1,7 +1,15 @@
 import * as React from "react"
 import Link from "next/link"
-import { X, ChevronDown, ChevronUp } from "lucide-react"
-import { categories } from "@/lib/data/categories"
+import { X, ChevronDown, ChevronUp, Zap, FlaskConical, Grid3X3, CloudLightning, Timer } from "lucide-react"
+
+const navProducts = [
+  { name: "Gel Earthing Electrode", slug: "gel-earthing-electrode", icon: Zap },
+  { name: "Earthing Backfill Compound", slug: "earthing-backfill-compound", icon: FlaskConical },
+  { name: "Faraday Cage / Octopus Earthing", slug: "faraday-cage-octopus-earthing", icon: Grid3X3 },
+  { name: "Stormflash 15 — ESE Air Terminal", slug: "stormflash-15-ese-air-terminal", icon: CloudLightning },
+  { name: "Stormflash 60 — ESE Air Terminal", slug: "stormflash-60-ese-air-terminal", icon: CloudLightning },
+  { name: "Lightning Flash Counter", slug: "lightning-flash-counter", icon: Timer },
+];
 
 export default function MobileNavDrawer({
   isOpen,
@@ -56,31 +64,23 @@ export default function MobileNavDrawer({
 
             {productsOpen && (
               <div className="mt-1 flex flex-col space-y-1 pl-4 pr-4">
-                {categories.map((cat) => {
-                  const Icon = cat.icon
+                {navProducts.map((product) => {
+                  const Icon = product.icon
                   return (
                     <Link
-                      key={cat.slug}
-                      href={`/products/${cat.slug}`}
+                      key={product.slug}
+                      href={`/products/${product.slug}`}
                       onClick={onClose}
                       className="flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium text-ink transition-colors hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50"
                     >
                       <Icon className="h-5 w-5 shrink-0 text-ash-orange" aria-hidden="true" />
-                      {cat.name}
+                      {product.name}
                     </Link>
                   )
                 })}
               </div>
             )}
           </div>
-
-          <Link
-            href="/services"
-            onClick={onClose}
-            className="block rounded-xl px-4 py-4 text-lg font-medium text-ink transition-colors hover:bg-surface-alt focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50"
-          >
-            Services
-          </Link>
         </nav>
       </div>
 

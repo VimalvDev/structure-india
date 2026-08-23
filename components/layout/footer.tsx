@@ -5,7 +5,10 @@ import Image from "next/image";
 const earthingProducts = [
   { name: "Gel Earthing Electrode", slug: "gel-earthing-electrode" },
   { name: "Earthing Backfill Compound", slug: "earthing-backfill-compound" },
-  { name: "Lightning Conductor", slug: "lightning-conductor" },
+  { name: "Faraday Cage / Octopus Earthing", slug: "faraday-cage-octopus-earthing" },
+  { name: "Stormflash 15 — ESE Air Terminal", slug: "stormflash-15-ese-air-terminal" },
+  { name: "Stormflash 60 — ESE Air Terminal", slug: "stormflash-60-ese-air-terminal" },
+  { name: "Lightning Flash Counter", slug: "lightning-flash-counter" },
 ];
 
 export default function Footer() {
@@ -43,7 +46,7 @@ export default function Footer() {
               {earthingProducts.map((product) => (
                 <li key={product.slug}>
                   <Link
-                    href={`/products#${product.slug}`}
+                    href={`/products/${product.slug}`}
                     className="text-sm text-white/75 transition-colors hover:text-white"
                   >
                     {product.name}

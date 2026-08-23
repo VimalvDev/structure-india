@@ -3,9 +3,17 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { Menu, Zap, FlaskConical, Grid3X3, CloudLightning, Timer } from "lucide-react";
 import MobileNavDrawer from "./mobile-nav-drawer";
-import { categories } from "@/lib/data/categories";
+
+const navProducts = [
+  { name: "Gel Earthing Electrode", slug: "gel-earthing-electrode", icon: Zap },
+  { name: "Earthing Backfill Compound", slug: "earthing-backfill-compound", icon: FlaskConical },
+  { name: "Faraday Cage / Octopus Earthing", slug: "faraday-cage-octopus-earthing", icon: Grid3X3 },
+  { name: "Stormflash 15 — ESE Air Terminal", slug: "stormflash-15-ese-air-terminal", icon: CloudLightning },
+  { name: "Stormflash 60 — ESE Air Terminal", slug: "stormflash-60-ese-air-terminal", icon: CloudLightning },
+  { name: "Lightning Flash Counter", slug: "lightning-flash-counter", icon: Timer },
+];
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -76,23 +84,23 @@ export default function Header() {
                     <NavigationMenuTrigger
                       className={`bg-transparent px-3 py-2 text-sm font-medium text-neutral-600 transition-colors ${navItemHover}`}
                     >
-                      Services
+                      Products
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <div className="grid grid-cols-2 gap-x-8 gap-y-1 w-[560px] p-6 bg-white rounded-2xl shadow-lg ring-1 ring-black/5">
-                        {categories.map((cat) => {
-                          const Icon = cat.icon;
+                        {navProducts.map((product) => {
+                          const Icon = product.icon;
                           return (
                             <Link
-                              key={cat.slug}
-                              href={`/products/${cat.slug}`}
+                              key={product.slug}
+                              href={`/products/${product.slug}`}
                               className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ash-orange/50 focus-visible:ring-offset-1"
                             >
                               <Icon
                                 className="h-4 w-4 shrink-0 text-ash-orange"
                                 aria-hidden="true"
                               />
-                              <span>{cat.name}</span>
+                              <span>{product.name}</span>
                             </Link>
                           );
                         })}
